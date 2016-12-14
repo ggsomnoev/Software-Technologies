@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<ul id="items">
+    <li>Sofiq</li>
+    <li>Varna</li>
+    <li>Stara Zagora</li>
+</ul>
+<input type="text" id="text" />
+<input type="button" onclick="clickEvent()" value="Add">
+
+<script>
+function clickEvent() {
+    let inputText = document.getElementById("text").value;
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(inputText));
+    document.getElementById("items").appendChild(li)
+    $('li').css('background', '#F80');
+}
+</script>
+
+</body>
+</html>

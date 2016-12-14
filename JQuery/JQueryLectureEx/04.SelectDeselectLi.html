@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        li {
+            display: inline-block;
+            padding: 10px
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+<ul id="items">
+    <li>Sofiq</li>
+    <li>Varna</li>
+    <li>Stara Zagora</li>
+</ul>
+
+<script>
+    $("#items>li").click( function () {
+        let li = $(this);
+        if (! li.attr('data-selected')) {
+            li.css('background', 'orange');
+            li.attr('data-selected', 'true');
+        } else {
+            li.css('background', '');
+            li.removeAttr('data-selected');
+        }
+    })
+
+</script>
+</body>
+</html>

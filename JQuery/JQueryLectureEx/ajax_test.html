@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <style>
+        .title { background:orange; padding: 10px }
+        .body { background:yellow; padding: 10px; margin-left: 10px }
+    </style>
+</head>
+<body>
+    <button onclick="listPosts()">List Posts</button>
+
+    <br>
+    <br>
+    Title: <input type="text" id="newPostTitle" />
+    Body: <input type="text" id="newPostBody" />
+    <button onclick="addPosts()">Add Post</button>
+    <script>
+        function listPosts() {
+            $.ajax({
+                method: "GET",
+                url: "https://baas.kinvey.com/appdata/kid_r14qvS6Xg/posts",
+                headers: {
+                    "Authorization": "Basic " + btoa("guest:guest")
+                },
+                //data: {..},
+                success: function(data) {
+                    for(let p of data) {
+                        $('body').append($('<div class=\'title\'>').text("Title: " + p.title));
+                        $('body').append($('<div class="body">').text("Body: " + p.body));
+                    }
+                },
+                error: function(data) {
+                    $('body').append(JSON.stringify(data));
+                }
+            });
+        }
+
+        function addPosts() {
+            $.ajax({
+                method: "POST",
+                url: "https://baas.kinvey.com/appdata/kid_r14qvS6Xg/posts",
+                headers: {
+                    "Authorization": "Basic " + btoa("guest:guest")
+                },
+                data: {
+                    title: $('#newPostTitle').val(),
+                    body: $('#newPostBody').val()
+                },
+                success: function() {
+                   listPosts();
+                },
+                error: function(data) {
+                    $('body').append(JSON.stringify(data));
+                }
+            });
+        }
+    </script>
+</body>
+</html>

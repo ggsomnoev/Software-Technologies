@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+<ul id="items">
+    <li>Sofiq</li>
+    <li>Varna</li>
+    <li>Stara Zagora</li>
+</ul>
+<input type="button" onclick="clickEvent()" >
+
+<script>
+function clickEvent() {
+    $("li").css('background', 'orange');
+    $('button').innerHTML = 'Save';
+}
+</script>
+</body>
+</html>

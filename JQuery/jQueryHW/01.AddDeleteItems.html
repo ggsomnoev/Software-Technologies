@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <style>
+        li a { display: none }
+        li:hover a { display: inline}
+    </style>
+</head>
+<body>
+    <h1>List of Items</h1>
+    <ul id="items"></ul>
+    <input type="text" id="text"/>
+    <input type="button" onclick="addRecord()" value="Add"/>
+
+    <script>
+        //adds two default records
+        $(function () {
+            addItemToList("First");
+            addItemToList("Second");
+        })
+        //if enter is pressed inside text field '#text', pressed (key code == 13), it finds the submit button on the right on the text box and clicks it.
+        $(function () {
+            $('#text').keypress(function (e) {
+                if(e.keyCode == 13) {
+                    $('#text + input[type="button"]').click();
+                }
+            })
+        })
+        function addRecord() {
+            let text = $('#text').val();
+            addItemToList(text);
+            $('#text').val(''); //clear input field
+        }
+        //remove the parent element a.k.a the li element. Something like $('a').parent() or $('<a>').parent()
+        function deleteItem(link) {
+            $(link).parent().remove();
+        }
+        function addItemToList(text) {
+            let li = $('<li>')
+                .append($('<span>').text(text))
+                .append(" ")
+                .append($("<a href='#' onclick='deleteItem(this)'>[Delete]</a>"));
+            $('#items').append(li)
+        }
+    </script>
+</body>
+</html>

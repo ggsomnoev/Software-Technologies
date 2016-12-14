@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <style>
+        td, th {
+            background: #DDD;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countries</h1>
+    <table id="countriesTable">
+        <tr>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Action</th>
+        </tr>
+
+    </table>
+
+    <br>
+    <span>Country: </span>
+    <input type="text" id="newCountryText"/><br>
+    <span>Capital: </span>
+    <input type="text" id="newCapitalText"/><br>
+    <input type="button" onclick="addCountry()" value="Add Country">
+
+    <script>
+        function fixRowLinks() {
+            $('#countriesTable a').show();
+            let tableRows = $('#countriesTable tr');
+            $(tableRows[1]).find("a:contains('Up')").hide();
+            $(tableRows[tableRows.length - 1]).find("a:contains('Down')").hide();
+        }
+        $(function () {
+            addDataToTable("Bulgaria", "Sofia");
+            addDataToTable("Germany", "Berlin");
+            addDataToTable("Rusia", "Moscow");
+            addDataToTable("France", "Paris");
+            addDataToTable("India", "Delphi");
+            fixRowLinks();
+        });
+        function addDataToTable(country, capital) {
+            let row = $('<tr>')
+                .append($('<td>').text(country))
+                .append($('<td>').text(capital))
+                .append($('<td>')
+                    .append($('<a href="#" onclick="moveRowUp(this)">[Up]</a>'))
+                    .append(" ")
+                    .append($('<a href="#" onclick="moveRowDown(this)">[Down]</a>'))
+                    .append(" ")
+                    .append($('<a href="#" onclick="deleteRow(this)">[Delete]</a>'))
+                );
+            $('#countriesTable').append(row);
+        }
+        function addCountry() {
+            let country = $('#newCountryText').val();
+            let capital = $('#newCapitalText').val();
+            let row = addDataToTable(country, capital);
+            row.hide();
+            row.fadeIn();
+            $('#newCountryText').val('');
+            $('#newCapitalText').val('');
+            fixRowLinks();
+        }
+        function deleteRow(link) {
+            let cell = $(link).parent().parent();
+            cell.fadeOut(function () {
+                cell.remove();
+                fixRowLinks();
+            })
+        }
+        function moveRowUp(link) {
+            let cell = $(link).parent().parent();
+            cell.fadeOut(function () {
+                cell.insertBefore(cell.prev());
+                cell.fadeIn();
+                fixRowLinks();
+            })
+        }
+        function moveRowDown(link) {
+            let cell = $(link).parent().parent();
+            cell.fadeOut(function () {
+                cell.insertAfter(cell.next());
+                cell.fadeIn();
+                fixRowLinks();
+            })
+        }
+    </script>
+</body>
+</html>
